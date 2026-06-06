@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0b0712" />
+  <title>Happy Birthday, Alina</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div id="loader" class="loader" aria-hidden="true">
+    <div class="loader__ring"></div>
+    <div class="loader__text">Preparing your birthday gift...</div>
+  </div>
+
+  <div class="scene-bg" aria-hidden="true">
+    <div class="scene-bg__sky"></div>
+    <div class="scene-bg__mountain scene-bg__mountain--back"></div>
+    <div class="scene-bg__mountain scene-bg__mountain--mid"></div>
+    <div class="scene-bg__mountain scene-bg__mountain--front"></div>
+    <div class="scene-bg__hill scene-bg__hill--left"></div>
+    <div class="scene-bg__hill scene-bg__hill--right"></div>
+    <div class="scene-bg__cloud scene-bg__cloud--one"></div>
+    <div class="scene-bg__cloud scene-bg__cloud--two"></div>
+    <div class="scene-bg__cloud scene-bg__cloud--three"></div>
+  </div>
+
+  <div class="intro-modal" id="intro-modal" aria-hidden="true">
+    <div class="intro-modal__card glass reveal" role="dialog" aria-modal="true" aria-labelledby="intro-title">
+      <button class="intro-modal__close" id="intro-close" type="button" aria-label="Skip song selection">×</button>
+      <div class="intro-modal__header">
+        <img src="me.jpg" alt="your photo" class="intro-modal__photo" />
+        <div>
+          <p class="eyebrow">From me to Alina</p>
+          <h2 id="intro-title">What song would you love to play in bg, my princess? :3👑</h2>
+          <p class="intro-modal__sub">Pick one and I will start it right away.</p>
+        </div>
+      </div>
+      <div id="intro-song-options" class="intro-modal__songs"></div>
+    </div>
+  </div>
+
+  <div class="floating-stickers" id="floating-stickers" aria-hidden="true"></div>
+
+  <canvas id="fx-canvas" class="fx-canvas" aria-hidden="true"></canvas>
+  <div class="custom-cursor" aria-hidden="true"></div>
+  <div class="custom-cursor custom-cursor--ring" aria-hidden="true"></div>
+
+  <main>
+    <section class="hero section" id="hero">
+      <div class="hero__backdrop"></div>
+      <div class="hero__glow hero__glow--pink"></div>
+      <div class="hero__glow hero__glow--gold"></div>
+      <div class="hero__content reveal">
+        <p class="eyebrow">A tiny digital birthday gift</p>
+        <h1>Happy Birthday, <span id="friend-name">Alina</span> 🎂</h1>
+        <p class="hero__typewriter" id="typewriter" aria-live="polite"></p>
+        <div class="hero__actions">
+          <a href="#music" class="button button--primary">Open playlist</a>
+          <a href="#surprise" class="button button--ghost">Find the surprise</a>
+        </div>
+      </div>
+      <button class="scroll-indicator" type="button" aria-label="Scroll to music section" data-scroll-to="#music">
+        <span></span>
+      </button>
+    </section>
+
+    <!-- Heartfelt letter removed per user request -->
+
+    <!-- Memory wall removed per user request -->
+
+    <!-- Flip-card reasons section removed per user request -->
+
+    <section class="section music" id="music">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Music</p>
+        <h2>A custom birthday playlist with art, controls, and a live visualizer</h2>
+      </div>
+      <div class="music-player glass reveal">
+        <div class="music-player__artwrap">
+          <img id="album-art" class="music-player__art" alt="Album artwork" />
+          <div class="music-player__badge">Now playing</div>
+        </div>
+        <div class="music-player__info">
+          <p class="music-player__title" id="track-title">Golden Hour Wishes</p>
+          <p class="music-player__subtitle" id="track-subtitle">Soft synth birthday atmosphere</p>
+          <canvas id="visualizer" width="640" height="180" aria-label="Music visualizer"></canvas>
+          <div class="music-player__controls">
+            <button class="icon-button" type="button" id="prev-track" aria-label="Previous track">⟨</button>
+            <button class="icon-button icon-button--primary" type="button" id="play-toggle" aria-label="Play or pause">▶</button>
+            <button class="icon-button" type="button" id="next-track" aria-label="Next track">⟩</button>
+          </div>
+          <div class="music-player__playlist" id="playlist"></div>
+          <div class="song-form glass">
+            <div class="song-form__heading">
+              <h3>Add your own song</h3>
+              <p>Paste an audio URL or upload a local file, then give it a title and note.</p>
+            </div>
+            <form id="song-form" class="song-form__grid">
+              <label>
+                Song title
+                <input id="song-title" type="text" placeholder="For example: Midnight Laughs" />
+              </label>
+              <label>
+                Artist or note
+                <input id="song-artist" type="text" placeholder="For example: your favorite song" />
+              </label>
+              <label class="song-form__wide">
+                Audio URL
+                <input id="song-source" type="url" placeholder="https://example.com/song.mp3" />
+              </label>
+              <label class="song-form__wide">
+                Or upload a file
+                <input id="song-file" type="file" accept="audio/*" />
+              </label>
+              <button class="button button--primary song-form__submit" type="submit">Add song</button>
+            </form>
+          </div>
+          <p class="music-player__hint">Background music can be toggled again in the final section.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Future-years tap section removed per user request -->
+
+    <section class="section facts" id="facts">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Fun facts</p>
+        <h2>Things I had to say</h2>
+      </div>
+      <div class="fact-grid" id="fact-grid"></div>
+    </section>
+
+    <section class="section surprise" id="surprise">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Surprise</p>
+        <h2>A locked gift box is waiting in the center</h2>
+      </div>
+      <div class="gift-wrap reveal">
+        <button class="gift-box" id="gift-box" type="button" aria-label="Open surprise gift box">
+          <span class="gift-box__ribbon gift-box__ribbon--vertical"></span>
+          <span class="gift-box__ribbon gift-box__ribbon--horizontal"></span>
+          <span class="gift-box__bow"></span>
+          <span class="gift-box__label">Click to open</span>
+        </button>
+        <div class="gift-message glass" id="gift-message" aria-live="polite">
+          <h3>Special message unlocked</h3>
+          <p>
+            So, yea, ik I'm not your bsf or anything, and it might be irritating itna bada jo likhunga, I hope when u read this,
+            background mai song play hoga ur favourite, I'll give u options hehe, but yea, HAPPY BIRTHDAY ALLLLIIINA! 💗💗✨
+          </p>
+          <p>
+            I can tell u how fun my life has been after u came in my life, i thought life would be boring after her, and i would
+            never find such a good friend, even though we'll never meet in real, but hey that doesn't matter, i can always dream,
+            right? That was funny.....ig 😭 so yea, your my favourite person and I wish you always grow and reach all heights and
+            hope shaadi na ho 😞 👉🏻👈🏻 jk
+          </p>
+          <p>
+            I imagine so many things we could do agar mil sakte....but ....bruh, ik it's boring koi itna bada text bheje, if only
+            real mai mil paata na, mai cafe ya restaurant leke jaata, in real mai I'm not this flirty, I mean I can say I'm a fun
+            person only if u like me as a friend Varna random people ko annoy karta hu haha, uhm sorry I yap too much, I love you so
+            much, and want u grow and jo bhi chaho sab kuch mile, even though u don't share things with me, I hope koi bhi, kabhi bhi
+            kuch problem ho, god usse mere life Mai daal de, I stay happy! 💗 I'm so glad I met you
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section compliment" id="compliment">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Interactive compliment generator</p>
+        <h2>Need a Smile?</h2>
+      </div>
+      <div class="compliment__card glass reveal">
+        <p class="compliment__text" id="compliment-text"></p>
+        <button class="button button--primary" id="compliment-btn" type="button">Need a Smile?</button>
+      </div>
+    </section>
+
+    <section class="section certificate" id="certificate">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Friendship certificate</p>
+        <h2>Officially Certified Amazing Human</h2>
+      </div>
+      <div class="certificate__frame reveal">
+        <div class="certificate__paper glass" id="certificate-paper">
+          <div class="certificate__seal">★</div>
+          <p class="certificate__small">This certifies that</p>
+          <h3 id="certificate-name">Alina</h3>
+          <p class="certificate__main">is an officially certified amazing human, excellent friend, and a very lovely presence in the world.</p>
+          <p class="certificate__detail">Awarded on this very special birthday, with appreciation for the light, laughter, and care brought into every conversation.</p>
+          <div class="certificate__signatures">
+            <div>
+              <span class="signature-line"></span>
+              <small>Birthday Committee</small>
+            </div>
+            <div>
+              <span class="signature-line"></span>
+              <small>Digital Best Friend Council</small>
+            </div>
+          </div>
+        </div>
+        <button class="button button--ghost certificate__button" type="button" id="download-certificate">Download as image</button>
+      </div>
+    </section>
+
+    <section class="section gallery" id="gallery">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Photo gallery</p>
+        <h2>Moments arranged in a soft masonry mosaic</h2>
+      </div>
+      <div class="gallery-grid reveal" id="gallery-grid"></div>
+    </section>
+
+    <section class="section finale" id="finale">
+      <div class="section__heading reveal">
+        <p class="eyebrow">Final birthday wish</p>
+        <h2>An ending with fireworks, lanterns, and a little more light</h2>
+      </div>
+      <div class="finale__card glass reveal">
+        <p>
+          May this year meet you gently and still surprise you in all the best ways. May your happiness be steady, your
+          burdens be lighter, and your dreams keep finding new doors.
+        </p>
+        <p>
+          Thank you for being such an amazing friend ❤️
+        </p>
+        <div class="finale__controls">
+          <button class="button button--primary" id="launch-fireworks" type="button">Launch fireworks</button>
+          <button class="button button--ghost" id="toggle-ambient" type="button">Toggle background music</button>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="lightbox" id="lightbox" aria-hidden="true">
+    <button class="lightbox__close" id="close-lightbox" type="button" aria-label="Close image">×</button>
+    <img id="lightbox-image" alt="Expanded gallery image" />
+    <p id="lightbox-caption"></p>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
